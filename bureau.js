@@ -128,5 +128,5 @@ Bureau.render = function(schema, data) {
 		}
 		table.appendChild(tr)
 	}
-	document.write(table.outerHTML)
+	document.body.innerHTML = table.outerHTML
 }

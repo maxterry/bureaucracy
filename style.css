@@ -1,0 +1,43 @@
+body {
+	margin: 6px; background: #ffd;
+	color: #444; font-size: small;
+}
+
+h1 {
+	margin: 0px; margin-bottom: 10px;
+	border-bottom: solid #999 1px;
+}
+
+table {
+	border-collapse: collapse; border: none;
+	font-family: verdana; text-align: center;
+}
+
+th {
+	padding: 6px;
+	border-color: #aaa;
+}
+
+th:hover, td:hover {
+	background: #fff;
+	cursor: pointer;
+}
+
+td {
+	padding: 6px;
+	border-color: #ddd;
+}
+
+.add {
+	background: lightgreen;
+	color: #444;
+}
+
+.remove {
+	background: pink;
+}
+
+.filter, select {
+	background: #444;
+	color: #eee;
+}
