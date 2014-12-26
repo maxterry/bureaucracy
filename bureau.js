@@ -141,9 +141,9 @@ Bureau.render = function(schema, data) {
 		var th = document.createElement('th');
 		th.innerText = schema[i].name;
 		th.className = schema[i].type.name;
-		// TODO
-		// td.addEventListener('click', function() { alert("ok") });
-		// td.addEventListener('dragstart', schema[i].move);
+		th.onclick = schema[i].filter;
+		th.draggable = true;
+		// th.ondrag = schema[i].move; // addEventListener('dragstart', schema[i].move);
 		tr.appendChild(th);
 	}
 	table.appendChild(tr);
@@ -159,6 +159,6 @@ Bureau.render = function(schema, data) {
 		table.appendChild(tr);
 	}
 
-	return table.outerHTML;
+	document.body.appendChild(table);
 
 }
