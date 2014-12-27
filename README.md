@@ -14,9 +14,15 @@ TODO
 Override schema properties: currently just `Bureau.settings.editable`,
 but this doesn't even do anything yet.
 
+### Headings
+
+Headings include the following default keys:
+
+`_id`, `name`, `type`, `editable`, `filter`, `move`, and `value`.
+
 ### Schema
 
-Definitions of headings:
+Define heading properties:
 
 * `_id` (String): Internal identifier
 * `name` (String): External label
@@ -31,10 +37,12 @@ each consisting of fields keyed with headings from the schema.
 
 ## Methods
 
+* `addHeading`: Add a new heading
 * `getHeading`: Retrieve a heading object
+* `addRow`: TODO
 * `getRow`: TODO
 * `render`: Convert JS(ON) data to HTML
 
 ## License
 
-MIT?
+&copy; Max Terry 2014. Some rights reserved.
