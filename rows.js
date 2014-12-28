@@ -29,7 +29,7 @@ Bureau.rows.push = function(obj) {
 }
 
 Bureau.rows.find = function(key) {
-	return Bureau.get(Bureau.rows.data, key);
+	return Bureau.find(Bureau.rows.data, key);
 }
 
 Bureau.rows.remove = function() {

@@ -1,6 +1,6 @@
 var Bureau = {};
 
-Bureau.get = function(obj, key) {
+Bureau.find = function(obj, key) {
 	for (var i in obj) {
 		if (obj[i]._id === key) {
 			return obj[i];

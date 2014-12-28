@@ -97,8 +97,8 @@ Bureau.cols.getHeadings = function() {
 	return Bureau.cols._headings;
 }
 
-Bureau.cols.getDefaultFunction = function(column, fn) {
-	return column[fn] || Bureau.cols.types[column.type.name][fn];
+Bureau.cols.getDefaultFunction = function(col, fn) {
+	return col[fn] || Bureau.cols.types[col.type.name][fn];
 }
 
 Bureau.cols.push = function(props) {
@@ -111,5 +111,5 @@ Bureau.cols.push = function(props) {
 }
 
 Bureau.cols.find = function(key) {
-	return Bureau.get(Bureau.cols.schema, key);
+	return Bureau.find(Bureau.cols.schema, key);
 }

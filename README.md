@@ -3,45 +3,65 @@
 Dynamic data tables.
 For organizing information.
 
-## Install
-
-TODO
-
-## Properties
+## Cols
 
 ### Settings
 
 Override schema properties: currently just `Bureau.settings.editable`,
 but this doesn't even do anything yet.
 
-### Headings
+### Types
 
-Headings include the following default keys:
+Values in a column are of a static type, currently consisting of
+`Boolean`, `Number`, `String`, `Array`, and `Location`.
 
-`_id`, `name`, `type`, `editable`, `filter`, `move`, and `value`.
+Each type has default functions, which are used for columns of
+that type, unless overridden in the schema.
 
 ### Schema
 
-Define heading properties:
+The schema specifies each columns' properties, including
+the `_id`, displayed `name`, `type`, whether `editable` (`true` by default),
+and functions for `sort`, `filter`, `move`, and display `value`.
 
-* `_id` (String): Internal identifier
-* `name` (String): External label
-* `type` (Object): TODO
-* `editable` (Boolean): Whether modifiable (TODO)
-* `filter`, `move`, `value`: TODO
+### Headings
 
-### Data
+`Bureau.cols.getHeadings()` returns a list of the current heading IDs.
+
+### Default Functions
+
+`Bureau.cols.getDefaultFunction(col, fn)` returns the col's default function.
+
+### Push
+
+Add a col.
+
+### Find
+
+Select a single col, by ID.
+
+## Rows
 
 An array of objects,
 each consisting of fields keyed with headings from the schema.
 
-## Methods
+### Push
 
-* `addHeading`: Add a new heading
-* `getHeading`: Retrieve a heading object
-* `addRow`: TODO
-* `getRow`: TODO
-* `render`: Convert JS(ON) data to HTML
+Add a row.
+
+### Find
+
+Get a row by ID.
+
+### Remove
+
+TODO
+
+## Table
+
+`Bureau.table()` renders the actual table, returning a DOM collection,
+which can be inserted into a document where desired,
+e.g. `document.body.appendChild(Bureau.table())`.
 
 ## License
 
