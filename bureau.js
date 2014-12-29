@@ -8,12 +8,12 @@ Bureau.find = function(obj, key) {
 	}
 }
 
-Bureau.table = function(schema, data) {
+Bureau.table = function(schema, rows) {
 
 	Bureau.cols.getHeadings();
 
 	schema = schema || Bureau.cols.schema;
-	data = data || Bureau.rows.data;
+	rows = rows || Bureau.rows.data;
 
 	var table = document.createElement('table'),
 		ths = document.createElement('tr'),
@@ -31,14 +31,18 @@ Bureau.table = function(schema, data) {
 	}
 	table.appendChild(tr);
 
-	for (var i in data) {
+	for (var i in rows) {
 		var tr = document.createElement('tr');
-		for (var id in data[i]) {
-			if (Bureau.cols._headings.indexOf(id) > -1) {
+		var row = rows[i];
+		for (var id in row) {
+			var cell = row[id];
+			if (Bureau.cols.hasHeading(id)) {
 				var td = document.createElement('td');
 				var h = Bureau.cols.find(id);
-				td.innerText = h && h.value? h.value(data[i][id]) : data[i][id];
+				var value = h && h.value? h.value(cell) : cell;
+				td.innerText = value;
 				tr.appendChild(td);
+				Bureau.cols.addValue(id, value)
 			}
 		}
 		table.appendChild(tr);

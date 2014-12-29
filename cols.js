@@ -97,6 +97,22 @@ Bureau.cols.getHeadings = function() {
 	return Bureau.cols._headings;
 }
 
+Bureau.cols.hasHeading = function(id) {
+	var headings = Bureau.cols.getHeadings();
+	return headings.indexOf(id) > -1;
+}
+
+Bureau.cols._values = {};
+
+Bureau.cols.addValue = function(id, value) {
+	Bureau.cols._values[id] = Bureau.cols._values[id] || [];
+	Bureau.cols._values[id].push(value);
+}
+
+Bureau.cols.getValues = function(id) {
+	return Bureau.cols._values[id];
+}
+
 Bureau.cols.getDefaultFunction = function(col, fn) {
 	return col[fn] || Bureau.cols.types[col.type.name][fn];
 }
