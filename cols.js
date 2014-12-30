@@ -6,30 +6,19 @@ Bureau.cols.types = {
 
 Bureau.cols.sort = function(col, isDescending) {
 
-	return function() {
+	var clone = function(arr) { return Array.prototype.slice.call(arr); }
+	var data = [];
+	var values = clone(Bureau.cols.values(col));
+	var sorted = clone(values).sort();
+	isDescending && (sorted = sorted.reverse());
 
-		var clone = function(arr) { return Array.prototype.slice.call(arr); }
-		var data = [];
-		var values = clone(Bureau.cols.values(col));
-		console.log("Values", values)
-		var sorted = clone(values).sort();
-		console.log("Sorted", sorted)
-		isDescending && (sorted = sorted.reverse());
-
-		for (var i=0, l=sorted.length; i<l; i++) {
-			var index = values.indexOf(sorted[i]);
-			console.log("Value", sorted[i])
-			console.log("Index", index)
-			console.log("Datum", Bureau.rows.data[index])
-			data.push(Bureau.rows.data[index]);
-		}
-
-		Bureau.rows.data = data;
-		// return Bureau.rows.data;
-		document.body.innerHTML = "";
-		document.body.appendChild(Bureau.table());
-
+	for (var i=0, l=sorted.length; i<l; i++) {
+		var index = values.indexOf(sorted[i]);
+		data.push(Bureau.rows.data[index]);
 	}
+
+	Bureau.rows.data = data;
+	return Bureau.rows.data;
 
 }
 

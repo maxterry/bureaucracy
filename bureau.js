@@ -8,8 +8,14 @@ Bureau.find = function(obj, key) {
 	}
 }
 
-Bureau.table = function(headings, rows) {
+Bureau.table = function(parent, headings, rows) {
 
+	function render(table) {
+		parent.innerHTML = "";
+		parent.appendChild(table);
+	}
+
+	parent = parent || document.body;
 	headings = headings || Bureau.cols.headings.data;
 	rows = rows || Bureau.rows.data;
 
@@ -19,12 +25,13 @@ Bureau.table = function(headings, rows) {
 
 	for (var i in headings) {
 		var th = document.createElement('th');
+		th.id = headings[i]._id;
 		th.innerText = headings[i].name;
 		th.className = headings[i].type.name;
-		th.onclick = Bureau.cols.sort(headings[i]._id);
-		// th.ondblclick = Bureau.cols.types.getDefaultFunction(headings[i], 'filter');
-		// TODO
-		// th.draggable = true;
+		th.onclick = function(event) {
+			Bureau.cols.sort(event.target.id);
+			Bureau.table(parent);
+		}
 		tr.appendChild(th);
 	}
 	table.appendChild(tr);
@@ -40,12 +47,12 @@ Bureau.table = function(headings, rows) {
 				var value = h && h.value? h.value(cell) : cell;
 				td.innerText = value;
 				tr.appendChild(td);
-				// Bureau.rows.values.add(id, value);
 			}
 		}
 		table.appendChild(tr);
 	}
 
+	render(table);
 	return table;
 
 }
