@@ -1,13 +1,19 @@
 Bureau.cols = {};
 
-Bureau.cols.settings = {
-	editable: true
+Bureau.cols.types = {
+	_keys: ['_id', 'name', 'type', 'editable', 'sort', 'filter', 'move']
 };
 
-Bureau.cols.types = {
+Bureau.cols.types.data = {
+
+	Object: {
+		editable: true
+	},
+
 	Boolean: {
 
 	},
+
 	Number: {
 		sort: function() {
 			console.log("Sort Number");
@@ -19,6 +25,7 @@ Bureau.cols.types = {
 			console.log("Drag Number");
 		}
 	},
+
 	String: {
 		sort: function() {
 			console.log("Sort String");
@@ -30,9 +37,11 @@ Bureau.cols.types = {
 			console.log("Drag String");
 		}
 	},
+
 	Array: {
 
 	},
+
 	Location: {
 		sort: function() {
 			console.log("Sort Location");
@@ -44,30 +53,32 @@ Bureau.cols.types = {
 			console.log("Drag Location");
 		}
 	}
+
 };
 
-Bureau.cols.attributes = [
-	'_id', 'name', 'type', 'editable', 'sort', 'filter', 'move'
-];
+Bureau.cols.types.getDefaultFunction = function(col, fn) {
+	return col[fn] || Bureau.cols.types.data[col.type.name][fn];
+}
 
-Bureau.cols.schema = [
+Bureau.cols.headings = {
+	_keys: []
+};
+
+Bureau.cols.headings.data = [
 	{
-		_id: "name",
+		_id: 'name',
 		name: "Name",
-		type: String,
-		editable: true
+		type: String
 	},
 	{
-		_id: "age",
+		_id: 'age',
 		name: "Age",
-		type: Number,
-		editable: true
+		type: Number
 	},
 	{
-		_id: "things",
+		_id: 'things',
 		name: "Things",
 		type: Array,
-		editable: true,
 		// TODO
 		// reference: {
 		// 	'filing-cabinet': {
@@ -79,53 +90,48 @@ Bureau.cols.schema = [
 		}
 	},
 	{
-		_id: "location",
+		_id: 'location',
 		name: "Location",
-		type: Location,
-		editable: true
+		type: Location
 	}
 ];
 
-Bureau.cols._headings = [];
-
-Bureau.cols.getHeadings = function() {
-	if (!Bureau.cols._headings.length) {
-		for (var i in Bureau.cols.schema) {
-			Bureau.cols._headings.push(Bureau.cols.schema[i]._id);
-		}
-	}
-	return Bureau.cols._headings;
-}
-
-Bureau.cols.hasHeading = function(id) {
-	var headings = Bureau.cols.getHeadings();
-	return headings.indexOf(id) > -1;
-}
-
-Bureau.cols._values = {};
-
-Bureau.cols.addValue = function(id, value) {
-	Bureau.cols._values[id] = Bureau.cols._values[id] || [];
-	Bureau.cols._values[id].push(value);
-}
-
-Bureau.cols.getValues = function(id) {
-	return Bureau.cols._values[id];
-}
-
-Bureau.cols.getDefaultFunction = function(col, fn) {
-	return col[fn] || Bureau.cols.types[col.type.name][fn];
-}
-
-Bureau.cols.push = function(props) {
+Bureau.cols.headings.add = function(props) {
 	var column = {};
 	for (var key in Bureau.cols.attributes) {
 		column[i] = props[key] || null;
 	}
-	Bureau.cols.schema.push(column);
-	Bureau.cols._headings.push(props._id);
+	Bureau.cols.headings.data.push(column);
+	Bureau.cols.headings._keys.push(props._id);
 }
 
-Bureau.cols.find = function(key) {
-	return Bureau.find(Bureau.cols.schema, key);
+Bureau.cols.headings.find = function(key) {
+	return Bureau.find(Bureau.cols.headings.data, key);
+}
+
+Bureau.cols.headings.get = function() {
+	if (!Bureau.cols.headings._keys.length) {
+		for (var i in Bureau.cols.headings.data) {
+			Bureau.cols.headings._keys.push(Bureau.cols.headings.data[i]._id);
+		}
+	}
+	return Bureau.cols.headings._keys;
+}
+
+Bureau.cols.headings.has = function(id) {
+	var headings = Bureau.cols.headings.get();
+	return headings.indexOf(id) > -1;
+}
+
+Bureau.cols.values = {
+	_data: {}
+};
+
+Bureau.cols.values.add = function(id, value) {
+	Bureau.cols.values._data[id] = Bureau.cols.values._data[id] || [];
+	Bureau.cols.values._data[id].push(value);
+}
+
+Bureau.cols.values.get = function(id) {
+	return Bureau.cols.values._data[id];
 }
