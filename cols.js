@@ -4,6 +4,35 @@ Bureau.cols.types = {
 	_keys: ['_id', 'name', 'type', 'editable', 'sort', 'filter', 'move']
 };
 
+Bureau.cols.sort = function(col, isDescending) {
+
+	return function() {
+
+		var clone = function(arr) { return Array.prototype.slice.call(arr); }
+		var data = [];
+		var values = clone(Bureau.cols.values(col));
+		console.log("Values", values)
+		var sorted = clone(values).sort();
+		console.log("Sorted", sorted)
+		isDescending && (sorted = sorted.reverse());
+
+		for (var i=0, l=sorted.length; i<l; i++) {
+			var index = values.indexOf(sorted[i]);
+			console.log("Value", sorted[i])
+			console.log("Index", index)
+			console.log("Datum", Bureau.rows.data[index])
+			data.push(Bureau.rows.data[index]);
+		}
+
+		Bureau.rows.data = data;
+		// return Bureau.rows.data;
+		document.body.innerHTML = "";
+		document.body.appendChild(Bureau.table());
+
+	}
+
+}
+
 Bureau.cols.types.data = {
 
 	Object: {
@@ -27,9 +56,6 @@ Bureau.cols.types.data = {
 	},
 
 	String: {
-		sort: function() {
-			console.log("Sort String");
-		},
 		filter: function() {
 			console.log("Filter String");
 		},
@@ -56,9 +82,11 @@ Bureau.cols.types.data = {
 
 };
 
-Bureau.cols.types.getDefaultFunction = function(col, fn) {
-	return col[fn] || Bureau.cols.types.data[col.type.name][fn];
-}
+// Bureau.cols.types.getDefaultFunction = function(col, fn) {
+// 	return col[fn] ||
+// 		Bureau.cols.types.data[col.type.name][fn] ||
+// 		Bureau.cols.types.data['Object'][fn];
+// }
 
 Bureau.cols.headings = {
 	_keys: []
@@ -123,15 +151,10 @@ Bureau.cols.headings.has = function(id) {
 	return headings.indexOf(id) > -1;
 }
 
-Bureau.cols.values = {
-	_data: {}
-};
-
-Bureau.cols.values.add = function(id, value) {
-	Bureau.cols.values._data[id] = Bureau.cols.values._data[id] || [];
-	Bureau.cols.values._data[id].push(value);
-}
-
-Bureau.cols.values.get = function(id) {
-	return Bureau.cols.values._data[id];
+Bureau.cols.values = function(col) {
+	var values = [];
+	for (var i in Bureau.rows.data) {
+		values.push(Bureau.rows.data[i][col]);
+	}
+	return values;
 }

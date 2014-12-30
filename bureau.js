@@ -8,21 +8,21 @@ Bureau.find = function(obj, key) {
 	}
 }
 
-Bureau.table = function(schema, rows) {
+Bureau.table = function(headings, rows) {
 
-	schema = schema || Bureau.cols.headings.data;
+	headings = headings || Bureau.cols.headings.data;
 	rows = rows || Bureau.rows.data;
 
 	var table = document.createElement('table'),
 		ths = document.createElement('tr'),
 		tr = document.createElement('tr');
 
-	for (var i in schema) {
+	for (var i in headings) {
 		var th = document.createElement('th');
-		th.innerText = schema[i].name;
-		th.className = schema[i].type.name;
-		th.onclick = Bureau.cols.types.getDefaultFunction(schema[i], 'sort');
-		th.ondblclick = Bureau.cols.types.getDefaultFunction(schema[i], 'filter');
+		th.innerText = headings[i].name;
+		th.className = headings[i].type.name;
+		th.onclick = Bureau.cols.sort(headings[i]._id);
+		// th.ondblclick = Bureau.cols.types.getDefaultFunction(headings[i], 'filter');
 		// TODO
 		// th.draggable = true;
 		tr.appendChild(th);
@@ -40,7 +40,7 @@ Bureau.table = function(schema, rows) {
 				var value = h && h.value? h.value(cell) : cell;
 				td.innerText = value;
 				tr.appendChild(td);
-				Bureau.cols.values.add(id, value);
+				// Bureau.rows.values.add(id, value);
 			}
 		}
 		table.appendChild(tr);
