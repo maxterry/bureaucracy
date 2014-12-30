@@ -1,82 +1,5 @@
 Bureau.cols = {};
 
-Bureau.cols.types = {
-	_keys: ['_id', 'name', 'type', 'editable', 'sort', 'filter', 'move']
-};
-
-Bureau.cols.sort = function(col, isDescending) {
-
-	var clone = function(arr) { return Array.prototype.slice.call(arr); }
-	var data = [];
-	var values = clone(Bureau.cols.values(col));
-	var sorted = clone(values).sort();
-	isDescending && (sorted = sorted.reverse());
-
-	for (var i=0, l=sorted.length; i<l; i++) {
-		var index = values.indexOf(sorted[i]);
-		data.push(Bureau.rows.data[index]);
-	}
-
-	Bureau.rows.data = data;
-	return Bureau.rows.data;
-
-}
-
-Bureau.cols.types.data = {
-
-	Object: {
-		editable: true
-	},
-
-	Boolean: {
-
-	},
-
-	Number: {
-		sort: function() {
-			console.log("Sort Number");
-		},
-		filter: function() {
-			console.log("Filter Number");
-		},
-		move: function() {
-			console.log("Drag Number");
-		}
-	},
-
-	String: {
-		filter: function() {
-			console.log("Filter String");
-		},
-		move: function() {
-			console.log("Drag String");
-		}
-	},
-
-	Array: {
-
-	},
-
-	Location: {
-		sort: function() {
-			console.log("Sort Location");
-		},
-		filter: function() {
-			console.log("Filter Location");
-		},
-		move: function() {
-			console.log("Drag Location");
-		}
-	}
-
-};
-
-// Bureau.cols.types.getDefaultFunction = function(col, fn) {
-// 	return col[fn] ||
-// 		Bureau.cols.types.data[col.type.name][fn] ||
-// 		Bureau.cols.types.data['Object'][fn];
-// }
-
 Bureau.cols.headings = {
 	_keys: []
 };
@@ -146,4 +69,22 @@ Bureau.cols.values = function(col) {
 		values.push(Bureau.rows.data[i][col]);
 	}
 	return values;
+}
+
+Bureau.cols.sort = function(col, isDescending) {
+
+	var clone = function(arr) { return Array.prototype.slice.call(arr); }
+	var data = [];
+	var values = clone(Bureau.cols.values(col));
+	var sorted = clone(values).sort();
+	isDescending && (sorted = sorted.reverse());
+
+	for (var i=0, l=sorted.length; i<l; i++) {
+		var index = values.indexOf(sorted[i]);
+		data.push(Bureau.rows.data[index]);
+	}
+
+	Bureau.rows.data = data;
+	return Bureau.rows.data;
+
 }
