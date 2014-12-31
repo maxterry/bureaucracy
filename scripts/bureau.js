@@ -39,12 +39,11 @@ Bureau.table = function(parent, headings, rows) {
 	for (var i in rows) {
 		var tr = document.createElement('tr');
 		var row = rows[i];
-		for (var id in row) {
-			var cell = row[id];
-			if (Bureau.cols.headings.has(id)) {
+		for (var col in row) {
+			var cell = row[col];
+			if (Bureau.cols.headings.has(col)) {
 				var td = document.createElement('td');
-				var h = Bureau.cols.headings.find(id);
-				var value = h && h.value? h.value(cell) : cell;
+				var value = Bureau.cols.value(col, cell);
 				td.innerText = value;
 				tr.appendChild(td);
 			}

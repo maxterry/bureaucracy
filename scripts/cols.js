@@ -63,10 +63,16 @@ Bureau.cols.headings.has = function(id) {
 	return headings.indexOf(id) > -1;
 }
 
+Bureau.cols.value = function(col, cell) {
+	var h = Bureau.cols.headings.find(col);
+	return h && h.value? h.value(cell) : cell;
+}
+
 Bureau.cols.values = function(col) {
 	var values = [];
 	for (var i in Bureau.rows.data) {
-		values.push(Bureau.rows.data[i][col]);
+		var value = Bureau.cols.value(col, Bureau.rows.data[i][col]);
+		values.push(value);
 	}
 	return values;
 }
@@ -81,6 +87,7 @@ Bureau.cols.sort = function(col, isDescending) {
 
 	for (var i=0, l=sorted.length; i<l; i++) {
 		var index = values.indexOf(sorted[i]);
+		values[index] = null; // Unstable
 		data.push(Bureau.rows.data[index]);
 	}
 
