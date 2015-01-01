@@ -1,37 +1,25 @@
 Bureau.rows = {};
 
-Bureau.rows.data = [
-	{
-		_id: 'edgar',
-		name: "Edgar",
-		age: 77,
-		things: ["filing-cabinet"],
-		location: "DC"
-	},
-	{
-		_id: 'dale',
-		name: "Dale",
-		age: 55,
-		things: ["microcassette recorder"],
-		location: "WA"
-	},
-	{
-		_id: 'clarice',
-		name: "Clarice",
-		age: 52,
-		things: ["dresser", "cabinet"],
-		location: "OH"
+Bureau.rows.data = [];
+
+Bureau.rows.add = function(rows) {
+	Bureau.rows.data = Bureau.rows.data.concat(rows);
+}
+
+Bureau.rows.find = function(id) {
+	if (id) {
+		return Bureau.find(Bureau.rows.data, id);
 	}
-];
-
-Bureau.rows.push = function(obj) {
-	Bureau.rows.data.push(obj);
+	return Bureau.rows.data;
 }
 
-Bureau.rows.find = function(key) {
-	return Bureau.find(Bureau.rows.data, key);
-}
-
-Bureau.rows.remove = function() {
-	// TODO
+Bureau.rows.remove = function(id) {
+	if (id) {
+		// TODO
+		var index = Bureau.rows.find(id);
+		Bureau.rows.data.splice(index, 1);	
+	}
+	else {
+		Bureau.rows.data = [];
+	}
 }

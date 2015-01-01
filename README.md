@@ -5,63 +5,40 @@ For organizing information.
 
 ## Cols
 
-### Settings
+### Add
 
-Override schema properties: currently just `Bureau.settings.editable`,
-but this doesn't even do anything yet.
-
-### Types
-
-Values in a column are of a static type, currently consisting of
-`Boolean`, `Number`, `String`, `Array`, and `Location`.
-
-Each type has default functions, which are used for columns of
-that type, unless overridden in the schema.
-
-### Schema
-
-The schema specifies each columns' properties, including
-the `_id`, displayed `name`, `type`, whether `editable` (`true` by default),
-and functions for `sort`, `filter`, `move`, and display `value`.
-
-### Headings
-
-`Bureau.cols.getHeadings()` returns a list of the current heading IDs.
-
-### Default Functions
-
-`Bureau.cols.getDefaultFunction(col, fn)` returns the col's default function.
-
-### Push
-
-Add a col.
+Concatenate an array of column objects.
 
 ### Find
 
-Select a single col, by ID.
+Get column by `key` (or all).
+
+### Remove
+
+Remove column by `key` (or all).
 
 ## Rows
 
 An array of objects,
-each consisting of fields keyed with headings from the schema.
+each consisting of fields keyed with column headings.
 
-### Push
+### Add
 
-Add a row.
+Concatenate an array of row objects.
 
 ### Find
 
-Get a row by ID.
+Get row by `_id` (or all).
 
 ### Remove
 
-TODO
+Remove row by `_id` (or all).
 
 ## Table
 
-`Bureau.table()` renders the actual table, returning a DOM collection,
-which can be inserted into a document where desired,
-e.g. `document.body.appendChild(Bureau.table())`.
+Takes `cols` (array of objects),
+`rows` (array of objects),
+and `parent` (DOM element).
 
 ## License
 

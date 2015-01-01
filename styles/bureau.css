@@ -19,7 +19,6 @@ th {
 }
 
 th:hover, td:hover {
-	background: #fff;
 	cursor: pointer;
 }
 
@@ -40,4 +39,14 @@ td {
 .filter, select {
 	background: #444;
 	color: #eee;
+}
+
+.sorted-desc {
+	background: black;
+	color: white;
+}
+
+.sorted-asc {
+	background: white;
+	color: black;
 }
