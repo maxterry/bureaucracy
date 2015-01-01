@@ -15,12 +15,6 @@ Bureau.start.cols = [
 		_id: 'things',
 		name: "Things",
 		type: Array,
-		// TODO
-		// reference: {
-		// 	'filing-cabinet': {
-		// 		name: "Filing Cabinet"
-		// 	}
-		// },
 		value: function(xs) {
 			return xs.length;
 		}
