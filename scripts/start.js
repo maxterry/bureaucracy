@@ -1,4 +1,6 @@
-var cols = [
+Bureau.start = {};
+
+Bureau.start.cols = [
 	{
 		_id: 'name',
 		name: "Name",
@@ -30,7 +32,7 @@ var cols = [
 	}
 ];
 
-var rows = [
+Bureau.start.rows = [
 	{
 		_id: 'edgar',
 		name: "Edgar",

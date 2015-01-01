@@ -43,7 +43,7 @@ Bureau.table = function(cols, rows, parent) {
 			document.getElementById(id).classList.add('sorted-asc');
 		}
 		else if (document.getElementById(id).classList.contains('sorted-asc')) {
-			render(Bureau.table(cols, rows));
+			render(Bureau.table(Bureau.start.cols, Bureau.start.rows));
 			document.getElementById(id).classList.remove('sorted-asc');
 		}
 		else {
