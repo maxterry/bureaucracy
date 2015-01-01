@@ -3,6 +3,13 @@
 Dynamic data tables.
 For organizing information.
 
+(Still very early and unstable!)
+
+## Start
+
+To easily get started,
+just change `Bureau.start.cols` and `.rows` in `scripts/start.js`.
+
 ## Cols
 
 ### Add
