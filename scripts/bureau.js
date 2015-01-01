@@ -25,8 +25,6 @@ Bureau.sort = function(col, isDescending) {
 
 Bureau.table = function(cols, rows, parent) {
 
-	cols = cols || Bureau.start.cols || Bureau.cols.data;
-	rows = rows || Bureau.start.rows || Bureau.rows.data;
 	parent = parent || document.body;
 
 	function render(table) {
@@ -38,7 +36,7 @@ Bureau.table = function(cols, rows, parent) {
 		var id = event.target.id;
 		if (document.getElementById(id).classList.contains('sorted-desc')) {
 			Bureau.sort(id, true);
-			render(Bureau.table());
+			render(Bureau.table(Bureau.cols.data, Bureau.rows.data));
 			document.getElementById(id).classList.remove('sorted-desc');
 			document.getElementById(id).classList.add('sorted-asc');
 		}
@@ -48,7 +46,7 @@ Bureau.table = function(cols, rows, parent) {
 		}
 		else {
 			Bureau.sort(id);
-			render(Bureau.table());
+			render(Bureau.table(Bureau.cols.data, Bureau.rows.data));
 			document.getElementById(id).classList.add('sorted-desc');
 		}
 	}
