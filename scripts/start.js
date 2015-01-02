@@ -7,6 +7,11 @@ Bureau.start.cols = [
 		type: String
 	},
 	{
+		_id: 'date',
+		name: "Travel Date",
+		type: Date
+	},
+	{
 		_id: 'age',
 		name: "Age",
 		type: Number
@@ -32,20 +37,23 @@ Bureau.start.rows = [
 		name: "Edgar",
 		age: 77,
 		things: ["filing-cabinet"],
-		location: "DC"
+		location: "DC",
+		date: "2015-02-01"
 	},
 	{
 		_id: 'dale',
 		name: "Dale",
 		age: 55,
 		things: ["microcassette recorder"],
-		location: "WA"
+		location: "WA",
+		date: "2015-02-11"
 	},
 	{
 		_id: 'clarice',
 		name: "Clarice",
 		age: 52,
 		things: ["dresser", "cabinet"],
-		location: "OH"
+		location: "OH",
+		date: "2015-01-30"
 	}
 ];

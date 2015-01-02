@@ -69,19 +69,21 @@ Bureau.table = function(cols, rows, parent) {
 	function addRows() {
 		Bureau.rows.remove();
 		Bureau.rows.add(rows);
-		for (var i in rows) {
-			var tr = document.createElement('tr');
-			var row = rows[i];
-			for (var col in row) {
+		var trs = [];
+		for (var i=0, l=cols.length; i<l; i++) {
+			var col = cols[i]._id;
+			for (var j=0, jl=rows.length; j<jl; j++) {
+				var row = rows[j];
 				var cell = row[col];
-				if (Bureau.cols.find(col)) {
-					var td = document.createElement('td');
-					var value = Bureau.cells.value(col, cell);
-					td.innerText = value;
-					tr.appendChild(td);
-				}
+				var value = Bureau.cells.value(col, cell)
+				var td = document.createElement('td');
+				td.innerText = value;
+				trs[j] = trs[j] || document.createElement('tr');
+				trs[j].appendChild(td)
 			}
-			table.appendChild(tr);
+		}
+		for (var i in trs) {
+			table.appendChild(trs[i])
 		}
 	}
 
