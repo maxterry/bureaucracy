@@ -36,17 +36,17 @@ Bureau.table = function(cols, rows, parent) {
 		var id = event.target.id;
 		if (document.getElementById(id).classList.contains('sorted-desc')) {
 			Bureau.sort(id, true);
-			render(Bureau.table(Bureau.cols.data, Bureau.rows.data));
+			render(Bureau.table(Bureau.cols.data, Bureau.rows.data, parent));
 			document.getElementById(id).classList.remove('sorted-desc');
 			document.getElementById(id).classList.add('sorted-asc');
 		}
 		else if (document.getElementById(id).classList.contains('sorted-asc')) {
-			render(Bureau.table(Bureau.start.cols, Bureau.start.rows));
+			render(Bureau.table(Bureau.start.cols, Bureau.start.rows, parent));
 			document.getElementById(id).classList.remove('sorted-asc');
 		}
 		else {
 			Bureau.sort(id);
-			render(Bureau.table(Bureau.cols.data, Bureau.rows.data));
+			render(Bureau.table(Bureau.cols.data, Bureau.rows.data, parent));
 			document.getElementById(id).classList.add('sorted-desc');
 		}
 	}
