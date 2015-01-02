@@ -10,7 +10,6 @@ Bureaucracy.cols.add = function(cols) {
 Bureaucracy.cols.find = function(key) {
 	if (key) {
 		return Bureaucracy.find(Bureaucracy.cols.data, key);
-		// return Bureaucracy.cols.find()[key];
 	}
 	if (!Bureaucracy.cols._keys.length) {
 		for (var i in Bureaucracy.cols.data) {
