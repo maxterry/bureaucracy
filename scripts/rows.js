@@ -1,25 +1,25 @@
-Bureau.rows = {};
+Bureaucracy.rows = {};
 
-Bureau.rows.data = [];
+Bureaucracy.rows.data = [];
 
-Bureau.rows.add = function(rows) {
-	Bureau.rows.data = Bureau.rows.data.concat(rows);
+Bureaucracy.rows.add = function(rows) {
+	Bureaucracy.rows.data = Bureaucracy.rows.data.concat(rows);
 }
 
-Bureau.rows.find = function(id) {
+Bureaucracy.rows.find = function(id) {
 	if (id) {
-		return Bureau.find(Bureau.rows.data, id);
+		return Bureaucracy.find(Bureaucracy.rows.data, id);
 	}
-	return Bureau.rows.data;
+	return Bureaucracy.rows.data;
 }
 
-Bureau.rows.remove = function(id) {
+Bureaucracy.rows.remove = function(id) {
 	if (id) {
 		// TODO
-		var index = Bureau.rows.find(id);
-		Bureau.rows.data.splice(index, 1);	
+		var index = Bureaucracy.rows.find(id);
+		Bureaucracy.rows.data.splice(index, 1);	
 	}
 	else {
-		Bureau.rows.data = [];
+		Bureaucracy.rows.data = [];
 	}
 }

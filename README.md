@@ -1,4 +1,4 @@
-# Bureau
+# Bureaucracy
 
 Dynamic data tables.
 For organizing information.

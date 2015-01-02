@@ -1,6 +1,6 @@
-Bureau.start = {};
+Bureaucracy.start = {};
 
-Bureau.start.cols = [
+Bureaucracy.start.cols = [
 	{
 		_id: 'name',
 		name: "Name",
@@ -31,7 +31,7 @@ Bureau.start.cols = [
 	}
 ];
 
-Bureau.start.rows = [
+Bureaucracy.start.rows = [
 	{
 		_id: 'edgar',
 		name: "Edgar",

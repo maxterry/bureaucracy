@@ -1,6 +1,6 @@
-var Bureau = {};
+var Bureaucracy = {};
 
-Bureau.find = function(obj, key) {
+Bureaucracy.find = function(obj, key) {
 	for (var i in obj) {
 		if (obj[i]._id === key) {
 			return obj[i];
@@ -8,22 +8,22 @@ Bureau.find = function(obj, key) {
 	}
 }
 
-Bureau.sort = function(col, isDescending) {
+Bureaucracy.sort = function(col, isDescending) {
 	function clone(arr) { return Array.prototype.slice.call(arr); }
 	var data = [];
-	var values = clone(Bureau.cols.values(col));
+	var values = clone(Bureaucracy.cols.values(col));
 	var sorted = clone(values).sort();
 	isDescending && (sorted = sorted.reverse());
 	for (var i=0, l=sorted.length; i<l; i++) {
 		var index = values.indexOf(sorted[i]);
 		values[index] = null; // Unstable
-		data.push(Bureau.rows.data[index]);
+		data.push(Bureaucracy.rows.data[index]);
 	}
-	Bureau.rows.data = data;
-	return Bureau.rows.data;
+	Bureaucracy.rows.data = data;
+	return Bureaucracy.rows.data;
 }
 
-Bureau.table = function(cols, rows, parent) {
+Bureaucracy.table = function(cols, rows, parent) {
 
 	parent = parent || document.body;
 
@@ -35,25 +35,25 @@ Bureau.table = function(cols, rows, parent) {
 	function sort(event) {
 		var id = event.target.id;
 		if (document.getElementById(id).classList.contains('sorted-desc')) {
-			Bureau.sort(id, true);
-			render(Bureau.table(Bureau.cols.data, Bureau.rows.data, parent));
+			Bureaucracy.sort(id, true);
+			render(Bureaucracy.table(Bureaucracy.cols.data, Bureaucracy.rows.data, parent));
 			document.getElementById(id).classList.remove('sorted-desc');
 			document.getElementById(id).classList.add('sorted-asc');
 		}
 		else if (document.getElementById(id).classList.contains('sorted-asc')) {
-			render(Bureau.table(Bureau.start.cols, Bureau.start.rows, parent));
+			render(Bureaucracy.table(Bureaucracy.start.cols, Bureaucracy.start.rows, parent));
 			document.getElementById(id).classList.remove('sorted-asc');
 		}
 		else {
-			Bureau.sort(id);
-			render(Bureau.table(Bureau.cols.data, Bureau.rows.data, parent));
+			Bureaucracy.sort(id);
+			render(Bureaucracy.table(Bureaucracy.cols.data, Bureaucracy.rows.data, parent));
 			document.getElementById(id).classList.add('sorted-desc');
 		}
 	}
 
 	function addCols(table) {
-		Bureau.cols.remove();
-		Bureau.cols.add(cols);
+		Bureaucracy.cols.remove();
+		Bureaucracy.cols.add(cols);
 		var tr = document.createElement('tr');
 		for (var i in cols) {
 			var th = document.createElement('th');
@@ -67,15 +67,15 @@ Bureau.table = function(cols, rows, parent) {
 	}
 
 	function addRows() {
-		Bureau.rows.remove();
-		Bureau.rows.add(rows);
+		Bureaucracy.rows.remove();
+		Bureaucracy.rows.add(rows);
 		var trs = [];
 		for (var i=0, l=cols.length; i<l; i++) {
 			var col = cols[i]._id;
 			for (var j=0, jl=rows.length; j<jl; j++) {
 				var row = rows[j];
 				var cell = row[col];
-				var value = Bureau.cells.value(col, cell)
+				var value = Bureaucracy.cells.value(col, cell)
 				var td = document.createElement('td');
 				td.innerText = value;
 				trs[j] = trs[j] || document.createElement('tr');
