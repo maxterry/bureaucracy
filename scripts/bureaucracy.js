@@ -8,11 +8,14 @@ Bureaucracy.find = function(obj, key) {
 	}
 }
 
+Bureaucracy.clone = function(arr) {
+	return Array.prototype.slice.call(arr);
+}
+
 Bureaucracy.sort = function(col, isDescending) {
-	function clone(arr) { return Array.prototype.slice.call(arr); }
 	var data = [];
-	var values = clone(Bureaucracy.cols.values(col));
-	var sorted = clone(values).sort();
+	var values = Bureaucracy.clone(Bureaucracy.cols.values(col));
+	var sorted = Bureaucracy.clone(values).sort();
 	isDescending && (sorted = sorted.reverse());
 	for (var i=0, l=sorted.length; i<l; i++) {
 		var index = values.indexOf(sorted[i]);
@@ -23,7 +26,12 @@ Bureaucracy.sort = function(col, isDescending) {
 	return Bureaucracy.rows.data;
 }
 
-Bureaucracy.table = function(cols, rows, parent) {
+Bureaucracy.table = function(cols, rows, parent, copy) {
+
+	if (copy !== false) {
+		Bureaucracy.start.cols = Bureaucracy.clone(cols);
+		Bureaucracy.start.rows = Bureaucracy.clone(rows);
+	}
 
 	parent = parent || document.body;
 
@@ -36,7 +44,7 @@ Bureaucracy.table = function(cols, rows, parent) {
 		var id = event.target.id;
 		if (document.getElementById(id).classList.contains('sorted-desc')) {
 			Bureaucracy.sort(id, true);
-			render(Bureaucracy.table(Bureaucracy.cols.data, Bureaucracy.rows.data, parent));
+			render(Bureaucracy.table(Bureaucracy.cols.data, Bureaucracy.rows.data, parent, false));
 			document.getElementById(id).classList.remove('sorted-desc');
 			document.getElementById(id).classList.add('sorted-asc');
 		}
@@ -46,7 +54,7 @@ Bureaucracy.table = function(cols, rows, parent) {
 		}
 		else {
 			Bureaucracy.sort(id);
-			render(Bureaucracy.table(Bureaucracy.cols.data, Bureaucracy.rows.data, parent));
+			render(Bureaucracy.table(Bureaucracy.cols.data, Bureaucracy.rows.data, parent, false));
 			document.getElementById(id).classList.add('sorted-desc');
 		}
 	}
