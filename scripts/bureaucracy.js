@@ -85,7 +85,7 @@ Bureaucracy.table = function(cols, rows, parent, copy) {
 				var cell = row[col];
 				var value = Bureaucracy.cells.value(col, cell)
 				var td = document.createElement('td');
-				td.innerText = value;
+				td.innerHTML = value;
 				trs[j] = trs[j] || document.createElement('tr');
 				trs[j].appendChild(td)
 			}
