@@ -26,6 +26,10 @@ Bureaucracy.sort = function(col, isDescending) {
 	return Bureaucracy.rows.data;
 }
 
+Bureaucracy.value = function(row, col) {
+	return col && col.value? col.value(row[col._id], row._id) : row[col._id];
+}
+
 Bureaucracy.table = function(cols, rows, parent, copy) {
 
 	if (copy !== false) {
@@ -43,7 +47,7 @@ Bureaucracy.table = function(cols, rows, parent, copy) {
 	function sort(event) {
 		var id = event.target.id;
 		if (document.getElementById(id).classList.contains('sorted-desc')) {
-			Bureaucracy.sort(id, true);
+			Bureaucracy.sort(Bureaucracy.cols.find(id), true);
 			render(Bureaucracy.table(Bureaucracy.cols.data, Bureaucracy.rows.data, parent, false));
 			document.getElementById(id).classList.remove('sorted-desc');
 			document.getElementById(id).classList.add('sorted-asc');
@@ -53,7 +57,7 @@ Bureaucracy.table = function(cols, rows, parent, copy) {
 			document.getElementById(id).classList.remove('sorted-asc');
 		}
 		else {
-			Bureaucracy.sort(id);
+			Bureaucracy.sort(Bureaucracy.cols.find(id));
 			render(Bureaucracy.table(Bureaucracy.cols.data, Bureaucracy.rows.data, parent, false));
 			document.getElementById(id).classList.add('sorted-desc');
 		}
@@ -79,11 +83,10 @@ Bureaucracy.table = function(cols, rows, parent, copy) {
 		Bureaucracy.rows.add(rows);
 		var trs = [];
 		for (var i=0, l=cols.length; i<l; i++) {
-			var col = cols[i]._id;
+			var col = cols[i];
 			for (var j=0, jl=rows.length; j<jl; j++) {
 				var row = rows[j];
-				var cell = row[col];
-				var value = Bureaucracy.cells.value(col, cell)
+				var value = Bureaucracy.value(row, col);
 				var td = document.createElement('td');
 				td.innerHTML = value;
 				trs[j] = trs[j] || document.createElement('tr');
