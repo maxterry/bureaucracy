@@ -109,8 +109,15 @@ Bureaucracy.table = function(cols, rows, parent, copy) {
 }
 
 Bureaucracy.list = function(parent) {
+
+	function render(lists) {
+		parent.innerHTML = "";
+		parent.appendChild(lists);
+	}
+
 	var lists = document.createElement('div');
 	var rows = Bureaucracy.rows.data;
+
 	for (var i in rows) {
 		var list = document.createElement('ul');
 		for (var j in rows[i]) {
@@ -120,15 +127,13 @@ Bureaucracy.list = function(parent) {
 				var heading = document.createElement('strong');
 				heading.innerHTML = col.name;
 				item.innerHTML = [heading.outerHTML, rows[i][j]].join(': ');
-				list.appendChild(item)
+				list.appendChild(item);
 			}
 		}
 		lists.appendChild(list);
 	}
-	function render(lists) {
-		parent.innerHTML = "";
-		parent.appendChild(lists);
-	}
-	render(lists)
+
+	render(lists);
 	return lists;
+
 }
