@@ -33,8 +33,8 @@ Bureaucracy.cols.remove = function(key) {
 Bureaucracy.cols.values = function(col) {
 	var values = [];
 	for (var i in Bureaucracy.rows.data) {
-		var value = Bureaucracy.value(Bureaucracy.rows.data[i], col);
-		values.push(value);
+		// var value = Bureaucracy.value(Bureaucracy.rows.data[i], col._id);
+		values.push(Bureaucracy.rows.data[i][col._id]);
 	}
 	return values;
 }

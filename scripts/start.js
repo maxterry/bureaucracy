@@ -1,5 +1,3 @@
-Bureaucracy.start = {};
-
 Bureaucracy.start.cols = [
 	{
 		_id: 'name',

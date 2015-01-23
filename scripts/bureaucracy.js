@@ -12,14 +12,14 @@ Bureaucracy.clone = function(arr) {
 	return Array.prototype.slice.call(arr);
 }
 
-Bureaucracy.sort = function(col, isDescending) {
+Bureaucracy.sort = function(col, direction) {
 	var data = [];
-	var values = Bureaucracy.clone(Bureaucracy.cols.values(col));
+	var values = Bureaucracy.cols.values(col);
 	var sorted = Bureaucracy.clone(values).sort();
-	isDescending && (sorted = sorted.reverse());
+	direction === 'descending' && (sorted = sorted.reverse());
 	for (var i=0, l=sorted.length; i<l; i++) {
 		var index = values.indexOf(sorted[i]);
-		values[index] = null; // Unstable
+		values[index] = undefined; // Unstable
 		data.push(Bureaucracy.rows.data[index]);
 	}
 	Bureaucracy.rows.data = data;
@@ -27,8 +27,10 @@ Bureaucracy.sort = function(col, isDescending) {
 }
 
 Bureaucracy.value = function(row, col) {
-	return col && col.value? col.value(row[col._id], row._id) : row[col._id];
+	return col && col.value? col.value(row, col) : row[col._id];
 }
+
+Bureaucracy.start = {};
 
 Bureaucracy.table = function(cols, rows, parent, copy) {
 
@@ -47,7 +49,7 @@ Bureaucracy.table = function(cols, rows, parent, copy) {
 	function sort(event) {
 		var id = event.target.id;
 		if (document.getElementById(id).classList.contains('sorted-desc')) {
-			Bureaucracy.sort(Bureaucracy.cols.find(id), true);
+			Bureaucracy.sort(Bureaucracy.cols.find(id), 'descending');
 			render(Bureaucracy.table(Bureaucracy.cols.data, Bureaucracy.rows.data, parent, false));
 			document.getElementById(id).classList.remove('sorted-desc');
 			document.getElementById(id).classList.add('sorted-asc');
@@ -104,4 +106,29 @@ Bureaucracy.table = function(cols, rows, parent, copy) {
 	render(table);
 	return table;
 
+}
+
+Bureaucracy.list = function(parent) {
+	var lists = document.createElement('div');
+	var rows = Bureaucracy.rows.data;
+	for (var i in rows) {
+		var list = document.createElement('ul');
+		for (var j in rows[i]) {
+			var item = document.createElement('li');
+			var col = Bureaucracy.cols.find(j);
+			if (col) {
+				var heading = document.createElement('strong');
+				heading.innerHTML = col.name;
+				item.innerHTML = [heading.outerHTML, rows[i][j]].join(': ');
+				list.appendChild(item)
+			}
+		}
+		lists.appendChild(list);
+	}
+	function render(lists) {
+		parent.innerHTML = "";
+		parent.appendChild(lists);
+	}
+	render(lists)
+	return lists;
 }

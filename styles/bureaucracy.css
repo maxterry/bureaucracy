@@ -40,14 +40,14 @@ td {
 }
 
 .sorted-desc {
-	border-bottom: solid #111 3px;
 	background: #FFA230;
+	border-bottom: solid #111 3px;
 	color: #111;
 }
 
 .sorted-asc {
-	border-top: solid #111 3px;
 	background: #FFA230;
+	border-top: solid #111 3px;
 	color: #111;
 }
 
