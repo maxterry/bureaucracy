@@ -18,7 +18,8 @@ Bureaucracy.start.cols = [
 		_id: 'things',
 		name: "Things",
 		type: Array,
-		value: function(xs) {
+		value: function(row, col) {
+			var xs = row[col._id];
 			return xs.length;
 		}
 	},
