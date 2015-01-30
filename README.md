@@ -5,6 +5,8 @@ For organizing information.
 
 (Still very early and unstable!)
 
+https://1083.github.io/bureaucracy
+
 ## Start
 
 To easily get started,
