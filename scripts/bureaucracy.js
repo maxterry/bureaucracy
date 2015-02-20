@@ -8,6 +8,101 @@ Bureaucracy.find = function(obj, key) {
 	}
 }
 
+Bureaucracy.rows = {};
+
+Bureaucracy.rows.data = [];
+
+Bureaucracy.rows.add = function(rows) {
+	Bureaucracy.rows.data = Bureaucracy.rows.data.concat(rows);
+}
+
+Bureaucracy.rows.find = function(id) {
+	if (id) {
+		return Bureaucracy.find(Bureaucracy.rows.data, id);
+	}
+	return Bureaucracy.rows.data;
+}
+
+Bureaucracy.rows.remove = function(id) {
+	if (id) {
+		// TODO
+		var index = Bureaucracy.rows.find(id);
+		Bureaucracy.rows.data.splice(index, 1);	
+	}
+	else {
+		Bureaucracy.rows.data = [];
+	}
+}
+
+Bureaucracy.cols = {};
+
+Bureaucracy.cols.data = [];
+Bureaucracy.cols._keys = [];
+
+Bureaucracy.cols.add = function(cols) {
+	Bureaucracy.cols.data = Bureaucracy.cols.data.concat(cols);
+}
+
+Bureaucracy.cols.find = function(key) {
+	if (key) {
+		return Bureaucracy.find(Bureaucracy.cols.data, key);
+	}
+	if (!Bureaucracy.cols._keys.length) {
+		for (var i in Bureaucracy.cols.data) {
+			Bureaucracy.cols._keys.push(Bureaucracy.cols.data[i]._id);
+		}
+	}
+	return Bureaucracy.cols._keys;
+}
+
+Bureaucracy.cols.remove = function(key) {
+	if (key) {
+		var index = Bureaucracy.cols._keys.indexOf(key);
+		Bureaucracy.cols.data.splice(index, 1);
+	}
+	else {
+		Bureaucracy.cols.data = [];
+		Bureaucracy.cols._keys = [];
+	}
+}
+
+Bureaucracy.cols.values = function(col) {
+	var values = [];
+	for (var i in Bureaucracy.rows.data) {
+		// var value = Bureaucracy.value(Bureaucracy.rows.data[i], col._id);
+		values.push(Bureaucracy.rows.data[i][col._id]);
+	}
+	return values;
+}
+
+Bureaucracy.cells = {};
+
+Bureaucracy.cells.set = function(rowId, colId, self) {
+	var row = Bureaucracy.rows.find(rowId);
+	var col = Bureaucracy.cols.find(colId);
+	row[col._id] = self.value;
+}
+
+Bureaucracy.cells.edit = function(row, col) {
+	if (row[col._id] === null) row[col._id] = "";
+	// TODO
+	if (col.type == Object) {
+		var a = document.createElement('a');
+		a.href = '#';
+		a.innerHTML = row[col._id];
+		a.setAttribute('onClick', 'alert("TODO")')
+		return a.outerHTML;
+	}
+	else {
+		var input = document.createElement('input');
+		input.id = row._id + '-' + col._id;
+		input.type = 'text' // TODO
+		input.setAttribute('value', row[col._id]);
+		input.setAttribute('onBlur', 'Bureaucracy.cells.set(\''+row._id+'\', \''+col._id+'\', this)');
+		return input.outerHTML;
+	}
+}
+
 Bureaucracy.clone = function(arr) {
 	return Array.prototype.slice.call(arr);
 }
