@@ -3,14 +3,14 @@
 Dynamic data tables.
 For organizing information.
 
-(Still very early and unstable!)
+(Still early and unstable!)
 
 https://1083.github.io/bureaucracy
 
 ## Start
 
-To easily get started,
-just change `Bureau.start.cols` and `.rows` in `scripts/start.js`.
+To get started quickly,
+change `Bureau.start.cols` and `rows` in `scripts/start.js`.
 
 ## Cols
 
@@ -43,11 +43,26 @@ Get row by `_id` (or all).
 
 Remove row by `_id` (or all).
 
+## Cells (TODO)
+
+### Set
+
+Set the value of a cell, with rowId, colId, and the element to take the value of.
+
+### Edit
+
+Make row/col editable.
+
 ## Table
 
 Takes `cols` (array of objects),
 `rows` (array of objects),
 and `parent` (DOM element).
+
+## List
+
+List view, for smaller screens.
+(Work in progress.)
 
 ## License
 
